@@ -4,7 +4,7 @@ server:
 spring:
   cloud:
     consul:
-      host: consul
+      host: localhost
       discovery:
         instanceId: authService
         health-check-interval: 5s
