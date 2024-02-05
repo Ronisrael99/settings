@@ -1,0 +1,40 @@
+spring:
+  cloud:
+    gateway:
+      discovery:
+        locator:
+          enabled: true
+      routes:
+        - id: auth
+          uri: lb://authService
+          predicates:
+            - Path=/authService/**
+          filters:
+            - RewritePath=/authService/(?<segment>.*), /$\{segment}
+        - id: products
+          uri: lb://productService
+          predicates:
+            - Path=/productService/**
+          filters:
+            - RewritePath=/productService/(?<segment>.*), /$\{segment}
+        - id: order
+          uri: lb://orderService
+          predicates:
+            - Path=/orderService/**
+          filters:
+            - RewritePath=/orderService/(?<segment>.*), /$\{segment}
+    consul:
+      host: consul
+      discovery:
+        instanceId: Gateway
+        health-check-interval: 5s
+      config:
+        management:
+          enabled: true
+management:
+  security:
+    enabled: false
+  endpoints:
+    web:
+      exposure:
+        include: info, health
