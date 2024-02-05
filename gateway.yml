@@ -24,7 +24,7 @@ spring:
           filters:
             - RewritePath=/orderService/(?<segment>.*), /$\{segment}
     consul:
-      host: consul
+      host: localhost
       discovery:
         instanceId: Gateway
         health-check-interval: 5s
